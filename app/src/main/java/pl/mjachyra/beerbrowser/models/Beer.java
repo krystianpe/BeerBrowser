@@ -73,152 +73,76 @@ public class Beer implements Parcelable {
         return mAbv;
     }
 
-    public void setAbv(String abv) {
-        mAbv = abv;
-    }
-
     public Available getAvailable() {
         return mAvailable;
-    }
-
-    public void setAvailable(Available available) {
-        mAvailable = available;
     }
 
     public Long getAvailableId() {
         return mAvailableId;
     }
 
-    public void setAvailableId(Long availableId) {
-        mAvailableId = availableId;
-    }
-
     public String getCreateDate() {
         return mCreateDate;
-    }
-
-    public void setCreateDate(String createDate) {
-        mCreateDate = createDate;
     }
 
     public String getDescription() {
         return mDescription;
     }
 
-    public void setDescription(String description) {
-        mDescription = description;
-    }
-
     public Glass getGlass() {
         return mGlass;
-    }
-
-    public void setGlass(Glass glass) {
-        mGlass = glass;
     }
 
     public Long getGlasswareId() {
         return mGlasswareId;
     }
 
-    public void setGlasswareId(Long glasswareId) {
-        mGlasswareId = glasswareId;
-    }
-
     public String getId() {
         return mId;
-    }
-
-    public void setId(String id) {
-        mId = id;
     }
 
     public String getIsOrganic() {
         return mIsOrganic;
     }
 
-    public void setIsOrganic(String isOrganic) {
-        mIsOrganic = isOrganic;
-    }
-
     public Labels getLabels() {
         return mLabels;
-    }
-
-    public void setLabels(Labels labels) {
-        mLabels = labels;
     }
 
     public String getName() {
         return mName;
     }
 
-    public void setName(String name) {
-        mName = name;
-    }
-
     public String getNameDisplay() {
         return mNameDisplay;
-    }
-
-    public void setNameDisplay(String nameDisplay) {
-        mNameDisplay = nameDisplay;
     }
 
     public String getServingTemperature() {
         return mServingTemperature;
     }
 
-    public void setServingTemperature(String servingTemperature) {
-        mServingTemperature = servingTemperature;
-    }
-
     public String getServingTemperatureDisplay() {
         return mServingTemperatureDisplay;
-    }
-
-    public void setServingTemperatureDisplay(String servingTemperatureDisplay) {
-        mServingTemperatureDisplay = servingTemperatureDisplay;
     }
 
     public String getStatus() {
         return mStatus;
     }
 
-    public void setStatus(String status) {
-        mStatus = status;
-    }
-
     public String getStatusDisplay() {
         return mStatusDisplay;
-    }
-
-    public void setStatusDisplay(String statusDisplay) {
-        mStatusDisplay = statusDisplay;
     }
 
     public Style getStyle() {
         return mStyle;
     }
 
-    public void setStyle(Style style) {
-        mStyle = style;
-    }
-
     public Long getStyleId() {
         return mStyleId;
     }
 
-    public void setStyleId(Long styleId) {
-        mStyleId = styleId;
-    }
-
     public String getUpdateDate() {
         return mUpdateDate;
-    }
-
-    public void setUpdateDate(String updateDate) {
-        mUpdateDate = updateDate;
     }
 
     @Override public int describeContents() {

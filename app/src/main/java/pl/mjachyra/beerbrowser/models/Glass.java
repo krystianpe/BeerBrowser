@@ -7,6 +7,15 @@ import com.google.gson.annotations.SerializedName;
 
 public class Glass implements Parcelable {
 
+    public static final Creator<Glass> CREATOR = new Creator<Glass>() {
+        @Override public Glass createFromParcel(Parcel source) {
+            return new Glass(source);
+        }
+
+        @Override public Glass[] newArray(int size) {
+            return new Glass[size];
+        }
+    };
     @SerializedName("createDate")
     private String mCreateDate;
     @SerializedName("id")
@@ -14,28 +23,25 @@ public class Glass implements Parcelable {
     @SerializedName("name")
     private String mName;
 
-    public String getCreateDate() {
-        return mCreateDate;
+    public Glass() {
     }
 
-    public void setCreateDate(String createDate) {
-        mCreateDate = createDate;
+    protected Glass(Parcel in) {
+        this.mCreateDate = in.readString();
+        this.mId = (Long) in.readValue(Long.class.getClassLoader());
+        this.mName = in.readString();
+    }
+
+    public String getCreateDate() {
+        return mCreateDate;
     }
 
     public Long getId() {
         return mId;
     }
 
-    public void setId(Long id) {
-        mId = id;
-    }
-
     public String getName() {
         return mName;
-    }
-
-    public void setName(String name) {
-        mName = name;
     }
 
     @Override public int describeContents() {
@@ -47,23 +53,4 @@ public class Glass implements Parcelable {
         dest.writeValue(this.mId);
         dest.writeString(this.mName);
     }
-
-    public Glass() {
-    }
-
-    protected Glass(Parcel in) {
-        this.mCreateDate = in.readString();
-        this.mId = (Long) in.readValue(Long.class.getClassLoader());
-        this.mName = in.readString();
-    }
-
-    public static final Creator<Glass> CREATOR = new Creator<Glass>() {
-        @Override public Glass createFromParcel(Parcel source) {
-            return new Glass(source);
-        }
-
-        @Override public Glass[] newArray(int size) {
-            return new Glass[size];
-        }
-    };
 }

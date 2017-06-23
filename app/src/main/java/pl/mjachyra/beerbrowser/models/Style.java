@@ -7,6 +7,15 @@ import com.google.gson.annotations.SerializedName;
 
 public class Style implements Parcelable {
 
+    public static final Creator<Style> CREATOR = new Creator<Style>() {
+        @Override public Style createFromParcel(Parcel source) {
+            return new Style(source);
+        }
+
+        @Override public Style[] newArray(int size) {
+            return new Style[size];
+        }
+    };
     @SerializedName("abvMax")
     private String mAbvMax;
     @SerializedName("abvMin")
@@ -42,140 +51,95 @@ public class Style implements Parcelable {
     @SerializedName("updateDate")
     private String mUpdateDate;
 
-    public String getAbvMax() {
-        return mAbvMax;
+    public Style() {
     }
 
-    public void setAbvMax(String abvMax) {
-        mAbvMax = abvMax;
+    protected Style(Parcel in) {
+        this.mAbvMax = in.readString();
+        this.mAbvMin = in.readString();
+        this.mCategory = in.readParcelable(Category.class.getClassLoader());
+        this.mCategoryId = (Long) in.readValue(Long.class.getClassLoader());
+        this.mCreateDate = in.readString();
+        this.mDescription = in.readString();
+        this.mFgMax = in.readString();
+        this.mFgMin = in.readString();
+        this.mIbuMax = in.readString();
+        this.mIbuMin = in.readString();
+        this.mId = (Long) in.readValue(Long.class.getClassLoader());
+        this.mName = in.readString();
+        this.mOgMin = in.readString();
+        this.mShortName = in.readString();
+        this.mSrmMax = in.readString();
+        this.mSrmMin = in.readString();
+        this.mUpdateDate = in.readString();
+    }
+
+    public String getAbvMax() {
+        return mAbvMax;
     }
 
     public String getAbvMin() {
         return mAbvMin;
     }
 
-    public void setAbvMin(String abvMin) {
-        mAbvMin = abvMin;
-    }
-
     public Category getCategory() {
         return mCategory;
-    }
-
-    public void setCategory(Category category) {
-        mCategory = category;
     }
 
     public Long getCategoryId() {
         return mCategoryId;
     }
 
-    public void setCategoryId(Long categoryId) {
-        mCategoryId = categoryId;
-    }
-
     public String getCreateDate() {
         return mCreateDate;
-    }
-
-    public void setCreateDate(String createDate) {
-        mCreateDate = createDate;
     }
 
     public String getDescription() {
         return mDescription;
     }
 
-    public void setDescription(String description) {
-        mDescription = description;
-    }
-
     public String getFgMax() {
         return mFgMax;
-    }
-
-    public void setFgMax(String fgMax) {
-        mFgMax = fgMax;
     }
 
     public String getFgMin() {
         return mFgMin;
     }
 
-    public void setFgMin(String fgMin) {
-        mFgMin = fgMin;
-    }
-
     public String getIbuMax() {
         return mIbuMax;
-    }
-
-    public void setIbuMax(String ibuMax) {
-        mIbuMax = ibuMax;
     }
 
     public String getIbuMin() {
         return mIbuMin;
     }
 
-    public void setIbuMin(String ibuMin) {
-        mIbuMin = ibuMin;
-    }
-
     public Long getId() {
         return mId;
-    }
-
-    public void setId(Long id) {
-        mId = id;
     }
 
     public String getName() {
         return mName;
     }
 
-    public void setName(String name) {
-        mName = name;
-    }
-
     public String getOgMin() {
         return mOgMin;
-    }
-
-    public void setOgMin(String ogMin) {
-        mOgMin = ogMin;
     }
 
     public String getShortName() {
         return mShortName;
     }
 
-    public void setShortName(String shortName) {
-        mShortName = shortName;
-    }
-
     public String getSrmMax() {
         return mSrmMax;
-    }
-
-    public void setSrmMax(String srmMax) {
-        mSrmMax = srmMax;
     }
 
     public String getSrmMin() {
         return mSrmMin;
     }
 
-    public void setSrmMin(String srmMin) {
-        mSrmMin = srmMin;
-    }
-
     public String getUpdateDate() {
         return mUpdateDate;
-    }
-
-    public void setUpdateDate(String updateDate) {
-        mUpdateDate = updateDate;
     }
 
     @Override public int describeContents() {
@@ -201,37 +165,4 @@ public class Style implements Parcelable {
         dest.writeString(this.mSrmMin);
         dest.writeString(this.mUpdateDate);
     }
-
-    public Style() {
-    }
-
-    protected Style(Parcel in) {
-        this.mAbvMax = in.readString();
-        this.mAbvMin = in.readString();
-        this.mCategory = in.readParcelable(Category.class.getClassLoader());
-        this.mCategoryId = (Long) in.readValue(Long.class.getClassLoader());
-        this.mCreateDate = in.readString();
-        this.mDescription = in.readString();
-        this.mFgMax = in.readString();
-        this.mFgMin = in.readString();
-        this.mIbuMax = in.readString();
-        this.mIbuMin = in.readString();
-        this.mId = (Long) in.readValue(Long.class.getClassLoader());
-        this.mName = in.readString();
-        this.mOgMin = in.readString();
-        this.mShortName = in.readString();
-        this.mSrmMax = in.readString();
-        this.mSrmMin = in.readString();
-        this.mUpdateDate = in.readString();
-    }
-
-    public static final Creator<Style> CREATOR = new Creator<Style>() {
-        @Override public Style createFromParcel(Parcel source) {
-            return new Style(source);
-        }
-
-        @Override public Style[] newArray(int size) {
-            return new Style[size];
-        }
-    };
 }

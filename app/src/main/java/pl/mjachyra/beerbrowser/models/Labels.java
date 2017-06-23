@@ -7,6 +7,15 @@ import com.google.gson.annotations.SerializedName;
 
 public class Labels implements Parcelable {
 
+    public static final Creator<Labels> CREATOR = new Creator<Labels>() {
+        @Override public Labels createFromParcel(Parcel source) {
+            return new Labels(source);
+        }
+
+        @Override public Labels[] newArray(int size) {
+            return new Labels[size];
+        }
+    };
     @SerializedName("icon")
     private String mIcon;
     @SerializedName("large")
@@ -14,28 +23,25 @@ public class Labels implements Parcelable {
     @SerializedName("medium")
     private String mMedium;
 
-    public String getIcon() {
-        return mIcon;
+    public Labels() {
     }
 
-    public void setIcon(String icon) {
-        mIcon = icon;
+    protected Labels(Parcel in) {
+        this.mIcon = in.readString();
+        this.mLarge = in.readString();
+        this.mMedium = in.readString();
+    }
+
+    public String getIcon() {
+        return mIcon;
     }
 
     public String getLarge() {
         return mLarge;
     }
 
-    public void setLarge(String large) {
-        mLarge = large;
-    }
-
     public String getMedium() {
         return mMedium;
-    }
-
-    public void setMedium(String medium) {
-        mMedium = medium;
     }
 
     @Override public int describeContents() {
@@ -47,23 +53,4 @@ public class Labels implements Parcelable {
         dest.writeString(this.mLarge);
         dest.writeString(this.mMedium);
     }
-
-    public Labels() {
-    }
-
-    protected Labels(Parcel in) {
-        this.mIcon = in.readString();
-        this.mLarge = in.readString();
-        this.mMedium = in.readString();
-    }
-
-    public static final Creator<Labels> CREATOR = new Creator<Labels>() {
-        @Override public Labels createFromParcel(Parcel source) {
-            return new Labels(source);
-        }
-
-        @Override public Labels[] newArray(int size) {
-            return new Labels[size];
-        }
-    };
 }
