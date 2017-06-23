@@ -47,7 +47,7 @@
       android:layout_margin="@dimen/fab_margin"
       app:layout_anchor="@id/app_bar"
       app:layout_anchorGravity="bottom|end"
-      app:srcCompat="@drawable/ic_action_heart"
+      app:srcCompat="@drawable/ic_favorite_border"
       />
 
 </android.support.design.widget.CoordinatorLayout>

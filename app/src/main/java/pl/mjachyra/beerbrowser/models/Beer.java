@@ -7,6 +7,15 @@ import com.google.gson.annotations.SerializedName;
 
 public class Beer implements Parcelable {
 
+    public static final Creator<Beer> CREATOR = new Creator<Beer>() {
+        @Override public Beer createFromParcel(Parcel source) {
+            return new Beer(source);
+        }
+
+        @Override public Beer[] newArray(int size) {
+            return new Beer[size];
+        }
+    };
     @SerializedName("abv")
     private String mAbv;
     @SerializedName("available")
@@ -45,6 +54,20 @@ public class Beer implements Parcelable {
     private Long mStyleId;
     @SerializedName("updateDate")
     private String mUpdateDate;
+
+    public Beer() {
+    }
+
+    protected Beer(Parcel in) {
+        this.mDescription = in.readString();
+        this.mId = in.readString();
+        this.mGlass = in.readParcelable(Glass.class.getClassLoader());
+        this.mLabels = in.readParcelable(Labels.class.getClassLoader());
+        this.mNameDisplay = in.readString();
+        this.mServingTemperatureDisplay = in.readString();
+        this.mStatusDisplay = in.readString();
+        this.mStyle = in.readParcelable(Style.class.getClassLoader());
+    }
 
     public String getAbv() {
         return mAbv;
@@ -204,6 +227,7 @@ public class Beer implements Parcelable {
 
     @Override public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.mDescription);
+        dest.writeString(this.mId);
         dest.writeParcelable(this.mGlass, flags);
         dest.writeParcelable(this.mLabels, flags);
         dest.writeString(this.mNameDisplay);
@@ -212,26 +236,11 @@ public class Beer implements Parcelable {
         dest.writeParcelable(this.mStyle, flags);
     }
 
-    public Beer() {
-    }
-
-    protected Beer(Parcel in) {
-        this.mDescription = in.readString();
-        this.mGlass = in.readParcelable(Glass.class.getClassLoader());
-        this.mLabels = in.readParcelable(Labels.class.getClassLoader());
-        this.mNameDisplay = in.readString();
-        this.mServingTemperatureDisplay = in.readString();
-        this.mStatusDisplay = in.readString();
-        this.mStyle = in.readParcelable(Style.class.getClassLoader());
-    }
-
-    public static final Creator<Beer> CREATOR = new Creator<Beer>() {
-        @Override public Beer createFromParcel(Parcel source) {
-            return new Beer(source);
+    @Override public boolean equals(Object obj) {
+        if (obj instanceof Beer) {
+            Beer beer = (Beer) obj;
+            return mId != null && mId.equals(beer.mId);
         }
-
-        @Override public Beer[] newArray(int size) {
-            return new Beer[size];
-        }
-    };
+        return super.equals(obj);
+    }
 }

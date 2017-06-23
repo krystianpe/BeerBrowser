@@ -13,61 +13,41 @@ import pl.mjachyra.beerbrowser.models.Beer;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class MainActivity extends AppCompatActivity implements OnListFragmentInteractionListener {
+public class MainActivity extends AppCompatActivity implements OnListFragmentInteractionListener,
+    BottomNavigationView.OnNavigationItemSelectedListener {
 
+  public static final String FRAGMENT = "fragment";
   private static final String TAG = "MainActivity";
-
   private static final String BASE_URL = "http://api.brewerydb.com/v2/";
   private static final Retrofit retrofit = new Retrofit.Builder()
       .baseUrl(BASE_URL)
       .addConverterFactory(GsonConverterFactory.create())
       .build();
-
   private static final Api apiService = retrofit.create(Api.class);
-
-  private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener =
-      new BottomNavigationView.OnNavigationItemSelectedListener() {
-
-        @Override public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-          switch (item.getItemId()) {
-            case R.id.navigation_home:
-              getSupportActionBar().setTitle(R.string.title_home);
-              loadBeersFragment();
-              return true;
-            case R.id.navigation_dashboard:
-              getSupportActionBar().setTitle(R.string.title_dashboard);
-              loadFavoriteBeersFragment();
-              return true;
-            case R.id.navigation_notifications:
-              getSupportActionBar().setTitle(R.string.title_notifications);
-              return true;
-          }
-          return false;
-        }
-
-
-      };
-
+  private BottomNavigationView navigation;
+  private int lastFragment;
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
     Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
     setSupportActionBar(toolbar);
-
-    BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
-    navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-    navigation.setSelectedItemId(R.id.navigation_home);
+    lastFragment =
+        savedInstanceState != null ? savedInstanceState.getInt(FRAGMENT, R.id.navigation_beers)
+            : R.id.navigation_beers;
+    navigation = (BottomNavigationView) findViewById(R.id.navigation);
+    navigation.setOnNavigationItemSelectedListener(this);
+    navigation.setSelectedItemId(lastFragment);
   }
 
-  private void loadBeersFragment() {
-    FragmentManager fm = getSupportFragmentManager();
-    fm.beginTransaction().replace(R.id.container, BeersFragment.newInstance()).commit();
+  @Override protected void onSaveInstanceState(Bundle outState) {
+    outState.putInt(FRAGMENT, navigation.getSelectedItemId());
+    super.onSaveInstanceState(outState);
   }
 
-  private void loadFavoriteBeersFragment() {
-    FragmentManager fm = getSupportFragmentManager();
-    fm.beginTransaction().replace(R.id.container, FavoriteBeersFragment.newInstance()).commit();
+  @Override protected void onRestoreInstanceState(Bundle savedInstanceState) {
+    super.onRestoreInstanceState(savedInstanceState);
+    savedInstanceState.getInt(FRAGMENT, R.id.navigation_beers);
   }
 
   @Override public void onListFragmentInteraction(Beer beer) {
@@ -80,4 +60,38 @@ public class MainActivity extends AppCompatActivity implements OnListFragmentInt
   @Override public Api apiService() {
     return apiService;
   }
+
+  @Override public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+    switch (item.getItemId()) {
+      case R.id.navigation_beers:
+        getSupportActionBar().setTitle(R.string.title_beers);
+        loadBeersFragment();
+        return true;
+      case R.id.navigation_favs:
+        getSupportActionBar().setTitle(R.string.title_favs);
+        loadFavoriteBeersFragment();
+        return true;
+      case R.id.navigation_settings:
+        getSupportActionBar().setTitle(R.string.title_settings);
+        loadSettingsFragment();
+        return true;
+    }
+    return false;
+  }
+
+  private void loadSettingsFragment() {
+    FragmentManager fm = getSupportFragmentManager();
+    fm.beginTransaction().replace(R.id.container, SettingsFragment.newInstance()).commit();
+  }
+
+  private void loadBeersFragment() {
+    FragmentManager fm = getSupportFragmentManager();
+    fm.beginTransaction().replace(R.id.container, BeersFragment.newInstance()).commit();
+  }
+
+  private void loadFavoriteBeersFragment() {
+    FragmentManager fm = getSupportFragmentManager();
+    fm.beginTransaction().replace(R.id.container, FavoriteBeersFragment.newInstance()).commit();
+  }
+
 }
